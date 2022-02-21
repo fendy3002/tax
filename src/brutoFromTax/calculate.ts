@@ -13,8 +13,8 @@ export const calculateBracket = ({
     let currentBracketTaxValue = 0;
     let currentResult: any = null;
     let additionalBracket: any = [];
-    if (currentBracket.current().value > 0 && requestTaxValue + accumulatedTax > currentBracket.current().value) {
-        currentBracketTaxValue = currentBracket.current().value - accumulatedTax;
+    if (currentBracket.current().taxValue > 0 && requestTaxValue + accumulatedTax > currentBracket.current().taxValue) {
+        currentBracketTaxValue = currentBracket.current().taxValue - accumulatedTax;
         currentResult = {
             [currentBracket.current().index]: {
                 taxValue: currentBracketTaxValue,

@@ -9,6 +9,7 @@ export interface configBracket {
 export interface bracket extends configBracket {
     index: number,
     value: number,
+    taxValue: number,
     prev?: bracket,
     next?: bracket
 };

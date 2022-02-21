@@ -4,10 +4,14 @@ export const calculateValue = ({
     bracket
 }: {
     bracket: types.configBracket
-}): number => {
+}) => {
     let bracketValue = (bracket.to ?? 0) - bracket.from;
     bracketValue = Math.max(0, bracketValue);
-    return bracketValue;
+    let taxValue = bracketValue * bracket.percent / 100;
+    return {
+        value: bracketValue,
+        taxValue: taxValue
+    };
 };
 
 export const arrange = ({
@@ -20,7 +24,7 @@ export const arrange = ({
     let firstBracket: types.bracket = {
         ...sortedBrackets[0],
         index: index++,
-        value: calculateValue({
+        ...calculateValue({
             bracket: sortedBrackets[0]
         })
     };
@@ -29,10 +33,11 @@ export const arrange = ({
         let currentBracket: types.bracket = {
             ...each,
             index: index++,
-            value: calculateValue({ bracket: each })
-        }
+            ...calculateValue({ bracket: each })
+        };
         currentBracket.prev = lastBracket;
         lastBracket.next = currentBracket;
+        lastBracket = currentBracket;
     }
     return firstBracket;
 };
