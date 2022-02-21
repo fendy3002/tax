@@ -1,10 +1,10 @@
 import * as types from './types';
 
 export const tax = ({
-    config, request
+    config, requests
 }: {
     config: types.config,
-    request: string
+    requests: types.requests
 }) => {
     
 };

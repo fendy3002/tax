@@ -5,3 +5,7 @@ export interface config {
         percent: number
     }[]
 };
+export interface requests extends Array<{
+    label: string,
+    tax: number
+}> { };
