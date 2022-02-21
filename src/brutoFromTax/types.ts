@@ -1,9 +1,15 @@
 export interface config {
-    bracket: {
-        from?: number,
-        to?: number,
-        percent: number
-    }[]
+    bracket: configBracket[]
+};
+export interface configBracket {
+    from: number,
+    to?: number,
+    percent: number
+};
+export interface bracket extends configBracket {
+    value: number,
+    prev?: bracket,
+    next?: bracket
 };
 export interface requests extends Array<{
     label: string,
