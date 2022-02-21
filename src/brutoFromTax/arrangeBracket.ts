@@ -4,13 +4,10 @@ export const calculateValue = ({
     bracket
 }: {
     bracket: types.configBracket
-}): types.bracket => {
+}): number => {
     let bracketValue = (bracket.to ?? 0) - bracket.from;
     bracketValue = Math.max(0, bracketValue);
-    return {
-        ...bracket,
-        value: bracketValue
-    };
+    return bracketValue;
 };
 
 export const arrange = ({
@@ -19,12 +16,21 @@ export const arrange = ({
     config: types.config
 }) => {
     let sortedBrackets = lo.sortBy(config.bracket, k => k.from ?? 0);
-    let firstBracket: types.bracket = calculateValue({
-        bracket: sortedBrackets[0]
-    });
+    let index = 0;
+    let firstBracket: types.bracket = {
+        ...sortedBrackets[0],
+        index: index++,
+        value: calculateValue({
+            bracket: sortedBrackets[0]
+        })
+    };
     let lastBracket = firstBracket;
     for (let each of sortedBrackets.slice(1)) {
-        let currentBracket: types.bracket = calculateValue({ bracket: each });
+        let currentBracket: types.bracket = {
+            ...each,
+            index: index++,
+            value: calculateValue({ bracket: each })
+        }
         currentBracket.prev = lastBracket;
         lastBracket.next = currentBracket;
     }
